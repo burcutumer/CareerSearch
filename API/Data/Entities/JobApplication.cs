@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace API.Data.Entities
 {
     [Table("Applications")]
-    public class Application
+    public class JobApplication
     {
         public int Id { get; set; }
         public string Cv { get; set; } = null!;

@@ -1,19 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Data.Entities
+namespace API.Data.Dtos
 {
-    [Table("JobPostings")]
-    public class JobPosting
+    public class JobPostingEmployerDto
     {
         public int Id { get; set; }
-        public string EmployerEmail { get; set; } = null!;
         public string CompanyName { get; set; } = null!;
         public string Position { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
-        public List<JobApplication> Applications { get; set; } = new();
+        public List<JobApplicationDto> Applications { get; set; } = new();
     }
 }

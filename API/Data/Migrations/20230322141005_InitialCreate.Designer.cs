@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20230317182335_InitialCreate")]
+    [Migration("20230322141005_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace API.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.15");
 
-            modelBuilder.Entity("API.Data.Entities.Application", b =>
+            modelBuilder.Entity("API.Data.Entities.JobApplication", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,6 +58,10 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EmployerEmail")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Position")
@@ -264,7 +268,7 @@ namespace API.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("API.Data.Entities.Application", b =>
+            modelBuilder.Entity("API.Data.Entities.JobApplication", b =>
                 {
                     b.HasOne("API.Data.Entities.JobPosting", "JobPosting")
                         .WithMany("Applications")

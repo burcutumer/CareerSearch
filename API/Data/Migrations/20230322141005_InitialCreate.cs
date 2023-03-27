@@ -57,6 +57,7 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    EmployerEmail = table.Column<string>(type: "TEXT", nullable: false),
                     CompanyName = table.Column<string>(type: "TEXT", nullable: false),
                     Position = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
