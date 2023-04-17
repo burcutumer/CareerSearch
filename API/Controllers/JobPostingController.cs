@@ -21,7 +21,7 @@ namespace API.Controllers
             var userEmail = User.Identity!.Name;
             var result = await _jobService.CreateJobAsync(job, userEmail!);
 
-            if (result.Error == null)
+            if (result.Error != null)
             {
                 return BadRequest(result);
             }
@@ -29,7 +29,7 @@ namespace API.Controllers
         }
 
         [Authorize(Roles = "employer")]
-        [HttpGet("jobs/employer")]
+        [HttpGet("employer")]
         public async Task<ActionResult<Response<List<JobPostingDto>>>> GetJobPostingsEmployer()
         {
             var userEmail = User.Identity?.Name;
@@ -42,7 +42,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("jobs")]
+        [HttpGet]
         public async Task<ActionResult<Response<List<JobPostingDto>>>> GetJobPostings()
         {
             var result = await _jobService.GetJobPostingsAsync();
@@ -55,7 +55,7 @@ namespace API.Controllers
         }
 
         [Authorize(Roles = "employer")]
-        [HttpGet("jobs/employer/{id}")]
+        [HttpGet("employer/{id}")]
         public async Task<ActionResult<Response<JobPostingEmployerDto>>> GetJobByIdEmployer(int id)
         {
             var userEmail = User.Identity?.Name;
@@ -68,7 +68,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("jobs/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Response<JobPostingDto>>> GetJobById(int id)
         {
             var result = await _jobService.GetJobByIdAsync(id);

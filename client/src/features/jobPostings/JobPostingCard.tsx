@@ -1,11 +1,13 @@
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Typography } from "@mui/material";
+import {Link} from "react-router-dom";
 import { JobPost } from "../../app/models/jobPost";
 
 interface Props {
   job: JobPost
 }
-// key = { id belirtiyorum }
+
 export default function JobPostingCard({ job }: Props) {
+
   return (
     <Card >
       <CardHeader
@@ -27,8 +29,8 @@ export default function JobPostingCard({ job }: Props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">APPLY</Button>
-        <Button size="small">VIEW</Button>
+        {/* <LoadingButton loading={loading} onClick={() => handleApplication} component={Link} to={`/jobApplication/${applicationid}`} size="small">APPLY</LoadingButton> */}
+        <Button component={Link} to={`/jobposting/${job.id}`} size="small">VIEW</Button>
       </CardActions>
     </Card>
     //   <ListItem key={job.id}>  KEY VERMEDEN CALISIYO MUU

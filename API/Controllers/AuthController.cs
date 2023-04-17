@@ -14,7 +14,6 @@ namespace API.Controllers
         public AuthController(IAuthService authService)
         {
             _authService = authService;
-
         }
 
         [HttpPost]
@@ -26,7 +25,6 @@ namespace API.Controllers
             {
                 return BadRequest(result);
             }
-
             return Ok(result);
         }
     }

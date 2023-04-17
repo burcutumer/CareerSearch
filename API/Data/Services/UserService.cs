@@ -38,17 +38,20 @@ namespace API.Data.Services
                         Error = result.Errors.Select(e => e.Description).ToList()
                     };
                 }
+
+                string role;
+
                 if (!user.IsEmployee)
                 {
-                    await _userManager.AddToRoleAsync(newUser, "employer");
+                    role = "employer";
                 }
                 else
                 {
-                    await _userManager.AddToRoleAsync(newUser, "employee");
+                    role = "employee";
                 }
 
-
-                return MapToResponseUserDtoData(newUser);
+                await _userManager.AddToRoleAsync(newUser, role);
+                return MapToResponseUserDtoData(newUser, role);
             }
             return new Response<UserDto>
             {
@@ -76,12 +79,30 @@ namespace API.Data.Services
                     Error = "User can not delete"
                 };
             }
-            return MapToResponseUserDtoData(user);
+            return MapToResponseUserDtoData(user, "");
         }
 
+
+        public async Task<Response<UserDto>> GetCurrentUserAsync(string userEmail)
+        {
+            var user = await _userManager.Users
+                .Include(a => a.Applications)
+               .FirstOrDefaultAsync(i => i.Email == userEmail);
+
+            if (user == null)
+            {
+                return new Response<UserDto>()
+                {
+                    Error = "User not found"
+                };
+            }
+            var userRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+
+            return MapToResponseUserDtoData(user, userRole!);
+        }
         public async Task<Response<UserDto>> GetUserByIdAsync(int userId)
         {
-            var user = await _context.Users
+            var user = await _userManager.Users
                 .Include(a => a.Applications)
                .FirstOrDefaultAsync(p => p.Id == userId);
 
@@ -92,7 +113,9 @@ namespace API.Data.Services
                     Error = "User not found"
                 };
             }
-            return MapToResponseUserDtoData(user);
+
+            var userRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+            return MapToResponseUserDtoData(user, userRole!);
         }
 
         public async Task<Response<bool>> UpdateUserAsync(UpdateUserDto dto, int userId)
@@ -123,7 +146,7 @@ namespace API.Data.Services
             };
         }
 
-        private static Response<UserDto> MapToResponseUserDtoData(User user)
+        private static Response<UserDto> MapToResponseUserDtoData(User user, string role)
         {
             return new Response<UserDto>
             {
@@ -131,7 +154,8 @@ namespace API.Data.Services
                 {
                     Id = user.Id,
                     FullName = user.FullName,
-                    Email = user.Email
+                    Email = user.Email,
+                    Role = role
                 }
             };
         }

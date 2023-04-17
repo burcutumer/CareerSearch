@@ -6,6 +6,7 @@ using API.Data.Dtos;
 using API.Data.Entities;
 using API.Data.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -15,6 +16,21 @@ namespace API.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<Response<UserDto>>> GetCurrentUser()
+        {
+            var userEmail = User.Identity?.Name;
+
+            var result = await _userService.GetCurrentUserAsync(userEmail!);
+
+            if (result.Error!= null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -52,9 +68,9 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Response<bool>>> UpdateUser([FromBody] UpdateUserDto user,int id)
+        public async Task<ActionResult<Response<bool>>> UpdateUser([FromBody] UpdateUserDto user, int id)
         {
-            var result = await _userService.UpdateUserAsync(user,id);
+            var result = await _userService.UpdateUserAsync(user, id);
 
             if (result.Error != null)
             {
