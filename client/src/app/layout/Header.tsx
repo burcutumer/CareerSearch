@@ -1,12 +1,12 @@
-import { AppBar, List, ListItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, List, ListItem, Toolbar } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useStoreContext } from "../context/StoreContext";
 import SignedInMenu from "./SignedInMenu";
-
+import SvgIcon from '@mui/material/SvgIcon';
 
 const midLinks = [
-    { title: 'job postings', path: '/jobposting', role: '' },
-    { title: 'post a job', path: '/jobPosting/new', role: 'employer' },
+    { title: 'jobs', path: '/jobs', role: '' },
+    { title: 'post a job', path: '/new', role: 'employer' },
     { title: 'about', path: '/about', role: '' }
 ]
 
@@ -19,6 +19,7 @@ const navStyles = {
     color: 'inherit',
     textDecoration: 'none',
     flexWrap: 'nowrap', whiteSpace: 'nowrap',
+    ml: 2,
     typography: 'h6',
     '&:hover': {
         color: 'grey.500'
@@ -35,11 +36,12 @@ export default function Header() {
     return (
         <AppBar position="static" sx={{ mb: 4 }}>
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h6"
-                    component={NavLink} to='/' sx={navStyles}
-                >
-                    MY CAREER
-                </Typography>
+
+                <Box component={NavLink} to='/'  sx={navStyles}>
+                    <SvgIcon fontSize="large" >
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </SvgIcon>
+                </Box>
                 <List sx={{ display: 'flex' }}>
                     {midLinks.map(({ title, path, role }) => (
                         (role === '' || user?.role === role) && <ListItem

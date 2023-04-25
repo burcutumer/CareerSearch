@@ -1,5 +1,5 @@
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Typography } from "@mui/material";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { JobPost } from "../../app/models/jobPost";
 
 interface Props {
@@ -12,12 +12,12 @@ export default function JobPostingCard({ job }: Props) {
     <Card >
       <CardHeader
         avatar={
-          <Avatar sx={{bgcolor:'secondary.main'}}>
+          <Avatar sx={{ bgcolor: 'secondary.main' }}>
             {job.companyName.charAt(0).toUpperCase()}
           </Avatar>
         }
         title={job.position} titleTypographyProps={{
-          sx: {fontWeight:'bold', color:'primary.main', fontSize:'23px'}
+          sx: { fontWeight: 'bold', color: 'primary.main', fontSize: '23px' }
         }}
       />
       <CardContent>
@@ -30,7 +30,7 @@ export default function JobPostingCard({ job }: Props) {
       </CardContent>
       <CardActions>
         {/* <LoadingButton loading={loading} onClick={() => handleApplication} component={Link} to={`/jobApplication/${applicationid}`} size="small">APPLY</LoadingButton> */}
-        <Button component={Link} to={`/jobposting/${job.id}`} size="small">VIEW</Button>
+        <Button component={Link} to={`/jobs/${job.id}`} size="small">VIEW</Button>
       </CardActions>
     </Card>
     //   <ListItem key={job.id}>  KEY VERMEDEN CALISIYO MUU

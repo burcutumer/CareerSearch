@@ -5,6 +5,8 @@ export interface JobApplication {
     id: number;
     cv: string;
     applicant: User;
-    jobPost: JobPost;
-    dateTime: string;
+    jobPosting: JobPost;
+    createdAt: string;
 }
+
+//modellerimdeki isimlendirmelerim ayni olmali ki bulunsun!!! jobposting  backenddekiyle ayni isimde olmali

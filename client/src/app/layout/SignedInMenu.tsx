@@ -1,6 +1,6 @@
 import { Button, Menu, Fade, MenuItem } from "@mui/material";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useStoreContext } from "../context/StoreContext";
 
 export default function SignedInMenu() {
@@ -14,6 +14,10 @@ export default function SignedInMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleNav = () => {
+        navigate("/profile");
+    }
 
     const handleSignOut = () => {
         signOut();
@@ -33,8 +37,7 @@ export default function SignedInMenu() {
                 onClose={handleClose}
                 TransitionComponent={Fade}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem component={Link} to='/jobApplication'>My Applications</MenuItem>
+                <MenuItem onClick={handleNav}>Profile</MenuItem>
                 <MenuItem onClick={handleSignOut}>Logout</MenuItem>
             </Menu>
         </>

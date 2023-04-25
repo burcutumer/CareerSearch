@@ -1,8 +1,5 @@
-import { Label } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Button, Divider, Grid, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from "@mui/material";
-import { getValue } from "@mui/system";
-import axios from "axios";
+import { Divider, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import agent from "../../app/api/agent";
@@ -12,7 +9,7 @@ import { JobPost } from "../../app/models/jobPost";
 
 export default function JobDetails() {
 
-    const {user} = useStoreContext();
+    const { user } = useStoreContext();
     const { id } = useParams<{ id: string }>();
     const [job, setJob] = useState<JobPost | null>(null);
     const [loading, setLoading] = useState(true);
@@ -23,23 +20,16 @@ export default function JobDetails() {
             .finally(() => setLoading(false));
     }, [id])
 
-    if (loading) return <LoadingComponent message="Loading Job..."/>
+    if (loading) return <LoadingComponent message="Loading Job..." />
     if (!job) return <h3>Job Posting not found</h3>
 
 
 
-    const cv = "cv"
-
-    function handleApplication(id: number) {
-        setLoading(true);
-        agent.Applications.addApplication(cv,id)
-    }
-
     return (
         <Grid container spacing={3}>
             <Grid item xs={3} >
-            <Typography sx={{ mb: 3, ml: -10 }} variant="h4">{job.companyName} </Typography>
-            <Typography sx={{ mb: 3, ml: -10 }} variant="subtitle1">{job.companyName} </Typography>
+                <Typography sx={{ mb: 3, ml: -10 }} variant="h4">{job.companyName} </Typography>
+                <Typography sx={{ mb: 3, ml: -10 }} variant="subtitle1">{job.companyName} </Typography>
             </Grid>
             <Grid item xs={9}>
                 <Grid container spacing={6} sx={{ mb: 4 }}>
@@ -54,8 +44,7 @@ export default function JobDetails() {
                             color='primary' size='large'
                             variant="contained"
                             fullWidth
-                            onClick={() => handleApplication}
-                            component={Link}  to={`/jobApplication/${job.id}`}
+                            component={Link} to={`/jobApplicationDetail/${id}`}
                         >Apply
                         </LoadingButton>}
                     </Grid>

@@ -14,6 +14,8 @@ import Login from "../../features/account/Login";
 import { useEffect } from "react";
 import agent from "../api/agent";
 import { useStoreContext } from "../context/StoreContext";
+import Profile from "../../features/profile/Profile";
+import Applicants from "../../features/jobPostings/Applicants";
 
 function App() {
   const { user, setUser } = useStoreContext();
@@ -27,7 +29,7 @@ function App() {
     }
   }, [user, setUser])
 
-  
+
   const theme = createTheme({
     palette: {
       background: {
@@ -43,12 +45,15 @@ function App() {
       <Container>
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/jobPosting' element={<JobPosting />} />
-          <Route path='/jobPosting/new' element={<PostAJob />} />
-          <Route path='/jobPosting/:id' element={<JobDetails />} />
-          <Route path='/jobApplication/:id' element={<JobApplicationDetail />} />
-          <Route path='/jobApplication' element={<JobApplications />} />
+          <Route path='/jobs' element={<JobPosting />} />
+          <Route path='/new' element={<PostAJob />} />
+          <Route path='/jobs/:id' element={<JobDetails />} />
+          <Route path='/profile/posts/:id' element={<Applicants />} />
+          <Route path='/profile/applications/:id' element={<JobApplicationDetail />} />
+          <Route path='/jobApplications' element={<JobApplications />} />
+          <Route path='/jobApplicationDetail/:id' element={<JobApplicationDetail />} />
           <Route path='/about' element={<AboutPage />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='*' element={<HomePage />} />

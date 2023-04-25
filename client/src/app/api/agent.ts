@@ -27,14 +27,16 @@ const responseBody = (response: AxiosResponse) => response.data.data;
 
 const Jobs = {
     list: () => requests.get('JobPosting'),
+    listEmployer: () => requests.get('JobPosting/employer'),
     details: (id: number) => requests.get(`JobPosting/${id}`),
+    detailsEmployer: (id: number) => requests.get(`JobPosting/employer/${id}`),
     addJob: (values:any) => requests.post('JobPosting', values)
 }
 
 const Applications = {
     list: () =>requests.get('JobApplication'),
     details: (id: number) => requests.get(`JobApplication/${id}`),
-    addApplication: (cv:string, jobId: number) => requests.post('JobApplication', {})
+    addApplication: (values:any) => requests.post('JobApplication', values)
 }
 
 const Account = {
